@@ -14,7 +14,7 @@ class NewTaskViewController: UIViewController {
     
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
-        label.text = "Заголовок"
+        label.text = "Header"
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         return label
@@ -22,42 +22,41 @@ class NewTaskViewController: UIViewController {
     
     private lazy var headerTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Заголовок"
-        textField.keyboardType = UIKeyboardType.default
-        textField.returnKeyType = UIReturnKeyType.done
-        textField.autocorrectionType = UITextAutocorrectionType.no
-        textField.borderStyle = UITextField.BorderStyle.roundedRect
-        textField.clearButtonMode = UITextField.ViewMode.whileEditing
-        textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        textField.placeholder = "Header"
+        textField.keyboardType = .default
+        textField.returnKeyType = .done
+        textField.autocorrectionType = .no
+        textField.borderStyle = .roundedRect
+        textField.clearButtonMode = .whileEditing
+        textField.contentVerticalAlignment = .center
+        textField.becomeFirstResponder()
         return textField
     }()
     
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.text = "Текст"
+        label.text = "Text"
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         return label
     }()
     
-    // Реализовать перенос строки
-    
     private lazy var textTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Текст"
-        textField.keyboardType = UIKeyboardType.default
-        textField.returnKeyType = UIReturnKeyType.done
-        textField.autocorrectionType = UITextAutocorrectionType.no
-        textField.borderStyle = UITextField.BorderStyle.roundedRect
-        textField.clearButtonMode = UITextField.ViewMode.whileEditing
-        textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        textField.placeholder = "Text"
+        textField.keyboardType = .default
+        textField.returnKeyType = .done
+        textField.autocorrectionType = .no
+        textField.borderStyle = .roundedRect
+        textField.clearButtonMode = .whileEditing
+        textField.contentVerticalAlignment = .center
         return textField
     }()
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Сохранить", for: .normal)
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.setTitle("Save", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
         button.addTarget(self, action: #selector(saveTask), for: .touchUpInside)
         return button
     }()
@@ -77,6 +76,7 @@ class NewTaskViewController: UIViewController {
         setupViews()
         setupConstraints()
         setupFields()
+        textFieldsDelegate()
     }
     
     private func setupViews() {
@@ -86,6 +86,11 @@ class NewTaskViewController: UIViewController {
         stackView.addArrangedSubview(textLabel)
         stackView.addArrangedSubview(textTextField)
         stackView.addArrangedSubview(saveButton)
+    }
+    
+    private func textFieldsDelegate() {
+        headerTextField.delegate = self
+        textTextField.delegate = self
     }
     
     private func setupFields() {
@@ -108,5 +113,18 @@ class NewTaskViewController: UIViewController {
         
         try? task?.managedObjectContext?.save()
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension NewTaskViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == headerTextField {
+            textTextField.becomeFirstResponder()
+        } else {
+            textTextField.resignFirstResponder()
+            saveTask(saveButton)
+        }
+        return true
     }
 }

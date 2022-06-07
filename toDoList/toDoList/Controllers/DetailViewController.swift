@@ -33,9 +33,9 @@ class DetailViewController: UIViewController {
         return stackView
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupViews()
         setupConstraints()
         setupText()
@@ -58,5 +58,4 @@ class DetailViewController: UIViewController {
         headerLabel.text = task?.name
         textLabel.text = task?.text
     }
-    
 }

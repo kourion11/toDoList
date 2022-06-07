@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import CoreData
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
     let tableView = UITableView()
     let cell = TaskCell()
@@ -19,7 +19,12 @@ class ViewController: UIViewController {
         let fetchRequest = Tasks.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: self.persistentContainer.viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
         fetchedResultsController.delegate = self
         return fetchedResultsController
     }()
@@ -34,8 +39,12 @@ class ViewController: UIViewController {
     }
     
     private func configure() {
-        title = "Заметки"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTask))
+        title = "Notes"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addTask)
+        )
     }
     
     private func setupTableView() {
@@ -68,13 +77,16 @@ class ViewController: UIViewController {
     
     @objc private func addTask() {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Add") as? NewTaskViewController {
-            vc.task = Tasks.init(entity: NSEntityDescription.entity(forEntityName: "Tasks", in: persistentContainer.viewContext)!, insertInto: persistentContainer.viewContext)
+            vc.task = Tasks.init(entity: NSEntityDescription.entity(
+                forEntityName: "Tasks",
+                in: persistentContainer.viewContext
+            )!, insertInto: persistentContainer.viewContext)
             navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = fetchedResultsController.sections else { return 0 }
@@ -117,7 +129,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension ViewController: NSFetchedResultsControllerDelegate {
+extension MainViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
