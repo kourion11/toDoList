@@ -9,16 +9,16 @@
 
 + We can add new note
 
-![Add_task](https://user-images.githubusercontent.com/77104848/173333188-5f37f399-4ebf-444c-b8cb-81529f5ab3ef.jpg)
+![AddTask](https://user-images.githubusercontent.com/77104848/173334505-11fb2291-19a9-48d4-9303-f5a5f194d2fd.jpg)
 
 + Notes remain after application restart
 
-![notes](https://user-images.githubusercontent.com/77104848/173333228-0422861f-23f1-444c-9971-6a11c93d22b2.jpg)
+![tasks](https://user-images.githubusercontent.com/77104848/173334955-f8d252a7-57a4-4545-82c4-4a9d5f721bf2.jpg)
 
 + We can see detailed information
 
-![detail](https://user-images.githubusercontent.com/77104848/173333249-987a7aeb-419b-4b36-b8ad-792a85a2fed5.jpg)
+![Detail](https://user-images.githubusercontent.com/77104848/173334972-1036926a-608f-4f0d-aaba-91a8672a2e8f.jpg)
 
 + We can delete our notes
 
-![delete_task](https://user-images.githubusercontent.com/77104848/173333279-9b0f7c2e-022c-4d5d-a2c5-ce7ae09dca63.jpg)
+![DeleteTask](https://user-images.githubusercontent.com/77104848/173335007-c68138e3-6784-4c17-844e-edba4b1ab1e6.jpg)
